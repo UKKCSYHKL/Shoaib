@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font Styles: A sophisticated serif for titles and a clean sans-serif for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* CORE DESIGN SYSTEM & GLOBAL STYLES */
+
+        :root {
+            --background-color: #121212; /* A deep, near-black for a true dark mode feel */
+            --primary-accent: #EABFFF; /* A soft, glowing lavender for a romantic and modern touch */
+            --secondary-accent: #B088F9; /* A slightly deeper purple for secondary elements */
+            --text-primary: #EAEAEA; /* Off-white for main text, easy on the eyes */
+            --text-secondary: #A0A0A0; /* A light grey for subtitles and less important text */
+            --glow-effect: 0 0 15px rgba(234, 191, 255, 0.6), 0 0 25px rgba(234, 191, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* PRELOADER - Sets the initial mood */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-accent);
+            text-shadow: var(--glow-effect);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        /* MAIN LAYOUT & ANIMATION */
+        .content-wrapper {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .content-wrapper.visible {
+            opacity: 1;
+        }
+        
+        .section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        /* Scroll-triggered fade-in animations */
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+
+        /* HERO SECTION - The grand entrance */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 1)), url('https://images.unsplash.com/photo-1549289524-06cf8837ace5?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 6rem); /* Responsive font size */
+            color: var(--primary-accent);
+            text-shadow: var(--glow-effect);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+        }
+        
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s 2s forwards;
+        }
+        
+        .scroll-down-indicator::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--primary-accent);
+            margin: 10px auto 0;
+            animation: scroll-flicker 2s infinite;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes scroll-flicker {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(0.3); }
+            100% { transform: scaleY(1); }
+        }
+
+
+        /* GENERAL STYLING */
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--primary-accent);
+            margin-bottom: 4rem;
+            text-shadow: var(--glow-effect);
+        }
+
+        /* TIMELINE SECTION */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--secondary-accent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+            opacity: 0.5;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--background-color);
+            border: 3px solid var(--primary-accent);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.left::after {
+            right: -10px;
+        }
+
+        .timeline-item.right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-content h3 {
+             font-family: 'Playfair Display', serif;
+             color: var(--primary-accent);
+             font-size: 1.5rem;
+             margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content p {
+            color: var(--text-secondary);
+        }
+
+        /* GALLERY SECTION */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* MESSAGE & MEDIA SECTIONS */
+        .media-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 40px var(--glow-effect);
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .message-box {
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+        
+        .message-highlight {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            display: block;
+            margin-top: 2rem;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media screen and (max-width: 768px) {
+            .section {
+                padding: 4rem 5%;
+            }
+            .timeline::after {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 15px;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Preloader Section -->
+    <div class="preloader">
+        <div class="loader-text">A story for you...</div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="hero-title reveal">Happy Birthday, [Girlfriend's Name]!</h1>
+            <p class="hero-subtitle reveal">Today, the world shines a little brighter because you're in it. This is a small journey through the moments that make you, and us, so special.</p>
+            <div class="scroll-down-indicator">Scroll to begin</div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="journey" class="section">
+            <h2 class="section-title reveal">Our Journey</h2>
+            <div class="timeline">
+                <!-- MEMORY 1: Customize this content -->
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>The Day Our Stars Aligned</h3>
+                        <p>I still remember the first time we met. Little did I know, that was the moment my life would change forever. It was the start of our beautiful story.</p>
+                    </div>
+                </div>
+                <!-- MEMORY 2: Customize this content -->
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>Our First Real Adventure</h3>
+                        <p>Whether it was our first date or that spontaneous road trip, it felt like the world was ours. Every moment was filled with laughter and excitement.</p>
+                    </div>
+                </div>
+                <!-- MEMORY 3: Customize this content -->
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>The Moment I Knew</h3>
+                        <p>There was a specific moment, a quiet glance, a shared laugh, when I looked at you and realized I was completely and irrevocably in love.</p>
+                    </div>
+                </div>
+                 <!-- MEMORY 4: Customize this content -->
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>Here and Now</h3>
+                        <p>And now, we're here. Stronger, happier, and more in love than ever. Celebrating you today is my greatest joy. Happy Birthday, my love.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <h2 class="section-title reveal">A Gallery of Us</h2>
+            <div class="gallery-grid">
+                <!-- Replace these placeholder images with your own! -->
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1529231812519-f0a4970678d6?q=80&w=1888&auto=format&fit=crop" alt="A cherished memory"></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/
